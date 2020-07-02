@@ -1,0 +1,30 @@
+<div *ngIf="searchData.length" class="container-fluid">
+    <h1>Searched Results</h1>
+    <ul *ngIf = "totalPages > 1" class="pagination">
+        <li class="page-item"><a class="page-link" *ngIf= "totalPages !== 1 && currentPage !== 1" (click)= "previousPage(currentPage)">Previous</a></li>
+        <li class="page-item"><a class="page-link" *ngIf= "totalPages === 1 && currentPage === 1">Previous</a></li>
+        <li class="page-item"><a class="page-link">{{currentPage}}</a></li>
+        <li class="page-item"><a class="page-link" *ngIf= "totalPages !== 1 && currentPage <= totalPages-1" (click)= "nextPage(currentPage)">Next</a></li>
+        <li class="page-item"><a class="page-link" *ngIf= "totalPages === 1 && currentPage === totalPages">Next</a></li>
+      </ul>
+    <div class="row">
+      <div class="col-md-6">
+        Title
+      </div>
+      <div class="col-md-6">
+        Author (Submission) 
+      </div>
+    </div>
+    <div class="row" *ngFor ="let data of searchData">
+        <div class="col-md-6 searchResults">
+          <a href="{{data.url}}" *ngIf="data.title">{{data.title}}</a>
+          <a href="{{data.story_url}}"  *ngIf="!data.title">{{data.story_title}}</a>
+        </div>
+        <div class="col-md-6 searchResults">
+            <p>{{data.author}} ({{data.submission}})</p>
+        </div>
+      </div>
+  </div>
+  <div class="noResults" *ngIf="!searchData.length">
+      Search Something.....
+  </div>
